@@ -266,12 +266,12 @@ test_tags_to_script_and_language (const char *script_tag_s,
 static void
 test_ot_tags_to_script_and_language (void)
 {
-  test_tags_to_script_and_language ("DFLT", "ENG", "", "en-x-hbscdflt");
+  test_tags_to_script_and_language ("DFLT", "ENG", "", "en-x-hbsc-44464c54");
   test_tags_to_script_and_language ("latn", "ENG", "Latn", "en");
-  test_tags_to_script_and_language ("deva", "MAR", "Deva", "mr-x-hbscdeva");
-  test_tags_to_script_and_language ("dev2", "MAR", "Deva", "mr-x-hbscdev2");
+  test_tags_to_script_and_language ("deva", "MAR", "Deva", "mr-x-hbsc-64657661");
+  test_tags_to_script_and_language ("dev2", "MAR", "Deva", "mr-x-hbsc-64657632");
   test_tags_to_script_and_language ("dev3", "MAR", "Deva", "mr");
-  test_tags_to_script_and_language ("qaa", "QTZ0", "Qaaa", "x-hbotqtz0-hbscqaa");
+  test_tags_to_script_and_language ("qaa", "QTZ0", "Qaaa", "x-hbot-51545a30-hbsc-71616120");
 }
 
 static void
@@ -291,8 +291,9 @@ test_ot_tag_language (void)
   test_language_two_way ("ENG", "en");
   test_tag_from_language ("ENG", "en_US");
 
-  test_language_two_way ("CJA", "cja"); /* Western Cham */
-  test_language_two_way ("CJM", "cjm"); /* Eastern Cham */
+  test_language_two_way ("CJA", "cja-x-hbot-434a4120"); /* Western Cham */
+  test_language_two_way ("CJM", "cjm-x-hbot-434a4d20"); /* Eastern Cham */
+  test_tag_from_language ("CJM", "cjm");
   test_language_two_way ("EVN", "eve");
 
   test_language_two_way ("HAL", "cfm"); /* BCP47 and current ISO639-3 code for Halam/Falam Chin */
@@ -351,13 +352,20 @@ test_ot_tag_language (void)
   test_tag_from_language ("ZHH", "yue-Hant");
   test_tag_from_language ("ZHS", "yue-Hans");
 
-  test_language_two_way ("ABC", "abc");
-  test_language_two_way ("ABCD", "x-hbotabcd");
+  test_language_two_way ("ABC", "abc-x-hbot-41424320");
+  test_language_two_way ("ABCD", "x-hbot-41424344");
   test_tag_from_language ("ABC", "asdf-asdf-wer-x-hbotabc-zxc");
   test_tag_from_language ("ABC", "asdf-asdf-wer-x-hbotabc");
   test_tag_from_language ("ABCD", "asdf-asdf-wer-x-hbotabcd");
+  test_tag_from_language ("ABC", "asdf-asdf-wer-x-hbot-41424320-zxc");
+  test_tag_from_language ("ABC", "asdf-asdf-wer-x-hbot-41424320");
+  test_tag_from_language ("ABCD", "asdf-asdf-wer-x-hbot-41424344");
 
+  test_tag_from_language ("dflt", "asdf-asdf-wer-x-hbot");
   test_tag_from_language ("dflt", "asdf-asdf-wer-x-hbot-zxc");
+  test_tag_from_language ("dflt", "asdf-asdf-wer-x-hbot-zxc-414243");
+  test_tag_from_language ("dflt", "asdf-asdf-wer-x-hbot-414243");
+  test_tag_from_language ("dflt", "asdf-asdf-wer-x-hbot-4142432");
 
   test_tag_from_language ("dflt", "xy");
   test_tag_from_language ("XYZ", "xyz"); /* Unknown ISO 639-3 */
@@ -423,12 +431,19 @@ test_ot_tag_language (void)
   test_language_two_way ("SYRN", "und-Syrn");
 
   /* Test that x-hbot overrides the base language */
-  test_tag_from_language ("ABC", "fa-x-hbotabc-zxc");
-  test_tag_from_language ("ABC", "fa-ir-x-hbotabc-zxc");
-  test_tag_from_language ("ABC", "zh-x-hbotabc-zxc");
-  test_tag_from_language ("ABC", "zh-cn-x-hbotabc-zxc");
-  test_tag_from_language ("ABC", "zh-xy-x-hbotabc-zxc");
-  test_tag_from_language ("ABC", "xyz-xy-x-hbotabc-zxc");
+  test_tag_from_language ("ABC", "fa-x-hbotabc-hbot-41686121-zxc");
+  test_tag_from_language ("ABC", "fa-ir-x-hbotabc-hbot-41686121-zxc");
+  test_tag_from_language ("ABC", "zh-x-hbotabc-hbot-41686121-zxc");
+  test_tag_from_language ("ABC", "zh-cn-x-hbotabc-hbot-41686121-zxc");
+  test_tag_from_language ("ABC", "zh-xy-x-hbotabc-hbot-41686121-zxc");
+  test_tag_from_language ("ABC", "xyz-xy-x-hbotabc-hbot-41686121-zxc");
+
+  test_tag_from_language ("Aha!", "fa-x-hbot-41686121-hbotabc-zxc");
+  test_tag_from_language ("Aha!", "fa-ir-x-hbot-41686121-hbotabc-zxc");
+  test_tag_from_language ("Aha!", "zh-x-hbot-41686121-hbotabc-zxc");
+  test_tag_from_language ("Aha!", "zh-cn-x-hbot-41686121-hbotabc-zxc");
+  test_tag_from_language ("Aha!", "zh-xy-x-hbot-41686121-hbotabc-zxc");
+  test_tag_from_language ("Aha!", "xyz-xy-x-hbot-41686121-hbotabc-zxc");
 
   /* Unnormalized BCP 47 tags */
   test_tag_from_language ("ARA", "ar-aao");
